@@ -28,6 +28,7 @@ class Post(models.Model):
     class Meta:
         ordering = ['created']
         get_latest_by = 'created'
+        db_table = 'posts'
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
 

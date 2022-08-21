@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'djbb.topics',
     'djbb.posts',
     'djbb.users',
+    'djbb.core',
 ]
 
 MIDDLEWARE = [
@@ -69,7 +70,7 @@ ROOT_URLCONF = 'devproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [BASE_DIR / 'djbb/templates']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -78,6 +79,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # djbb
+                'djbb.core.context_processors.forum_settings',
             ],
         },
     },
@@ -134,6 +137,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+STATICFILES_DIRS = [BASE_DIR / 'djbb/static']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

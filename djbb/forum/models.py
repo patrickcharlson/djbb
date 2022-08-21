@@ -25,6 +25,7 @@ class Forum(models.Model):
     class Meta:
         ordering = ['position']
         verbose_name = 'Forum'
+        db_table = 'forums'
         verbose_name_plural = 'Forums'
 
     def __str__(self):

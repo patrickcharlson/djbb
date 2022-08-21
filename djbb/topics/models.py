@@ -23,6 +23,7 @@ class Topic(models.Model):
         get_latest_by = 'updated'
         verbose_name = 'Topic'
         verbose_name_plural = 'Topics'
+        db_table = 'topics'
 
     def __str__(self):
         return self.name

@@ -33,9 +33,9 @@ class ProfileManager(models.Manager):
         qs = super(ProfileManager, self).get_queryset()
         if settings.REPUTATION_SUPPORT:
             qs = qs.extra(select={
-                'reply_total': 'SELECT SUM(sign) FROM djangobb_forum_reputation WHERE to_user_id = djangobb_forum_profile.user_id GROUP BY to_user_id',
-                'reply_count_minus': "SELECT SUM(sign) FROM djangobb_forum_reputation WHERE to_user_id = djangobb_forum_profile.user_id AND sign = '-1' GROUP BY to_user_id",
-                'reply_count_plus': "SELECT SUM(sign) FROM djangobb_forum_reputation WHERE to_user_id = djangobb_forum_profile.user_id AND sign = '1' GROUP BY to_user_id",
+                'reply_total': 'SELECT SUM(sign) FROM reputations WHERE to_user_id = public.users.user_id GROUP BY to_user_id',
+                'reply_count_minus': "SELECT SUM(sign) FROM reputations WHERE to_user_id = public.users.user_id AND sign = '-1' GROUP BY to_user_id",
+                'reply_count_plus': "SELECT SUM(sign) FROM reputations WHERE to_user_id = public.users.user_id AND sign = '1' GROUP BY to_user_id",
             })
         return qs
 
@@ -75,6 +75,8 @@ class Profile(models.Model):
     class Meta:
         verbose_name = 'Profile'
         verbose_name_plural = 'Profiles'
+        db_table = 'users'
+        get_latest_by = 'date_joined'
 
     def last_post(self):
         posts = Post.objects.filter(user__id=self.user_id).order_by('-created')
